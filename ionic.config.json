@@ -1,0 +1,7 @@
+{
+  "name": "coursegoals",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
