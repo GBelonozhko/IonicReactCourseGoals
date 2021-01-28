@@ -55,13 +55,13 @@ import CoursesContextProvider from "./data/CoursesContextProvider";
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <SideDrawer/>
+      <SideDrawer />
       <CoursesContextProvider>
-      <IonRouterOutlet>
-        <Route path='/filter' component={Filter} exact/>
-        <Route path="/courses" component={CourseTabs} />
-        <Redirect path="/" to="/courses/list" exact/>
-      </IonRouterOutlet>
+        <IonRouterOutlet>
+          <Route path='/filter' component={Filter} exact />
+          <Route path='/courses' component={CourseTabs} />
+          <Redirect path='/' to='/courses/list' exact />
+        </IonRouterOutlet>
       </CoursesContextProvider>
     </IonReactRouter>
   </IonApp>
