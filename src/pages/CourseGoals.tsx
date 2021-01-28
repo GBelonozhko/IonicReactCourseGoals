@@ -30,27 +30,25 @@ const CourseGoals: React.FC = () => {
   const [toastMessage, setToastMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState({ id: "", text: "" });
-  
 
   const coursesCtx = useContext(CoursesContext);
 
   const slidingOptionsRef = useRef<HTMLIonItemSlidingElement>(null);
-  const selectedGoalIdRef = useRef<string | null>(null)
+  const selectedGoalIdRef = useRef<string | null>(null);
 
   const selectedCourse = coursesCtx.courses.find(
-    c => c.id === selectedCourseId
+    (c) => c.id === selectedCourseId
   );
 
-  const startDeletGoalHandler = (goalId:string) => {
-    setToastMessage('');
+  const startDeletGoalHandler = (goalId: string) => {
+    setToastMessage("");
     setStartedDeleting(true);
     selectedGoalIdRef.current = goalId;
-
   };
 
   const deleteGoalHandler = () => {
     setStartedDeleting(false);
-    coursesCtx.deleteGoal(selectedCourseId, selectedGoalIdRef.current!)
+    coursesCtx.deleteGoal(selectedCourseId, selectedGoalIdRef.current!);
     setToastMessage("Deleted Goal!");
   };
 
@@ -76,34 +74,35 @@ const CourseGoals: React.FC = () => {
   };
 
   const saveGoalHandler = (text: string) => {
-      if(selectedGoal.id===""){
-        coursesCtx.addGoal(selectedCourseId, text)
+    if (selectedGoal.id === "") {
+      coursesCtx.addGoal(selectedCourseId, text);
     } else {
-      
-      coursesCtx.updateGoal(selectedCourseId, selectedGoal.id, text)
+      coursesCtx.updateGoal(selectedCourseId, selectedGoal.id, text);
     }
-  
+
     setIsEditing(false);
   };
 
   let content = <h2 className='ion-text-center'>No Goals Found!</h2>;
 
-  if(!selectedCourse){
-    content=<h2>No Course Found!</h2>
+  if (!selectedCourse) {
+    content = <h2>No Course Found!</h2>;
   }
 
-  if(selectedCourse && selectedCourse.goals.length > 0){
-    content = <IonList>
-    {selectedCourse.goals.map((goal) => (
-      <EditableGoalItem
-        key={goal.id}
-        slidingRef={slidingOptionsRef}
-        text={goal.text}
-        onStartDelete={startDeletGoalHandler.bind(null,goal.id)}
-        onStartEdit={startEditGoalHandler.bind(null, goal.id)}
-      />
-    ))}
-  </IonList>
+  if (selectedCourse && selectedCourse.goals.length > 0) {
+    content = (
+      <IonList>
+        {selectedCourse.goals.map((goal) => (
+          <EditableGoalItem
+            key={goal.id}
+            slidingRef={slidingOptionsRef}
+            text={goal.text}
+            onStartDelete={startDeletGoalHandler.bind(null, goal.id)}
+            onStartEdit={startEditGoalHandler.bind(null, goal.id)}
+          />
+        ))}
+      </IonList>
+    );
   }
 
   return (
@@ -154,8 +153,7 @@ const CourseGoals: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-
-{content}
+          {content}
           {isPlatform("android") && (
             <IonFab
               horizontal='center'
